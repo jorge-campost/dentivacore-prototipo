@@ -1,0 +1,1307 @@
+/* variables de los fundamentos visuales */
+:root {
+    --primario: #0F766E;
+    --primario-oscuro: #115E59;
+    --fondo: #F8FAFC;
+    --superficie: #FFFFFF;
+    --borde: #E2E8F0;
+    --texto: #0F172A;
+    --texto-secundario: #475569;
+    --exito: #15803D;
+    --advertencia: #B45309;
+    --error: #B91C1C;
+    --radio: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: var(--fondo);
+    color: var(--texto);
+}
+h1 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+}
+h2 {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 600;
+}
+h3 {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+}
+a {
+    color: var(--primario);
+    text-decoration: none;
+    font-weight: 500;
+}
+a:hover {
+    color: var(--primario-oscuro);
+}
+[hidden] {
+    display: none !important;
+}
+.secundario {
+    color: var(--texto-secundario);
+}
+.pequeno {
+    font-size: 12px;
+    line-height: 16px;
+}
+.derecha {
+    text-align: right;
+}
+.fila {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.fila-separada {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.columna {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.icono {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    flex: none;
+}
+.icono svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* botones */
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.boton:hover {
+    border-color: var(--primario);
+    color: var(--texto);
+}
+.boton-primario {
+    background-color: var(--primario);
+    border-color: var(--primario);
+    color: white;
+}
+.boton-primario:hover {
+    background-color: var(--primario-oscuro);
+    border-color: var(--primario-oscuro);
+    color: white;
+}
+.boton-peligro {
+    border-color: var(--error);
+    color: var(--error);
+}
+.boton-peligro:hover {
+    background-color: var(--error);
+    border-color: var(--error);
+    color: white;
+}
+.boton:disabled {
+    background-color: var(--borde);
+    border-color: var(--borde);
+    color: var(--texto-secundario);
+    cursor: not-allowed;
+}
+.boton-ancho {
+    display: flex;
+    width: 100%;
+}
+.boton-pequeno {
+    height: 32px;
+    padding: 0 12px;
+}
+.boton-icono {
+    width: 40px;
+    padding: 0;
+}
+.boton-texto {
+    border: none;
+    background: none;
+    color: var(--primario);
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.boton-texto:hover {
+    color: var(--primario-oscuro);
+}
+.boton-texto-peligro {
+    color: var(--error);
+}
+
+/* campos de formulario */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+.campo label {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+}
+input,
+select,
+textarea {
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+}
+textarea {
+    height: 96px;
+    padding: 10px 12px;
+    resize: vertical;
+}
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border: 2px solid var(--primario);
+    padding: 0 11px;
+}
+textarea:focus {
+    padding: 9px 11px;
+}
+input:disabled,
+select:disabled {
+    background-color: var(--borde);
+    color: var(--texto-secundario);
+}
+input.con-error,
+select.con-error,
+textarea.con-error {
+    border-color: var(--error);
+}
+.campo small {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--error);
+}
+.campo small:empty {
+    display: none;
+}
+.ayuda {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--texto-secundario);
+}
+.campos-fila {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* buscador de pacientes */
+.buscador {
+    position: relative;
+}
+.buscador input {
+    padding-left: 36px;
+}
+.buscador input:focus {
+    padding-left: 35px;
+}
+.buscador .icono {
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    color: var(--texto-secundario);
+}
+.sugerencias {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 48px;
+    z-index: 5;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    list-style: none;
+}
+.sugerencias button {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    text-align: left;
+    color: var(--texto);
+    cursor: pointer;
+}
+.sugerencias button:hover {
+    background-color: var(--fondo);
+    color: var(--primario);
+}
+.sugerencias li {
+    padding: 10px 12px;
+    color: var(--texto-secundario);
+}
+.sugerencias li:has(button) {
+    padding: 0;
+}
+
+/* avisos */
+.aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--texto-secundario);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+}
+.aviso .icono {
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+}
+.aviso strong {
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    padding-bottom: 2px;
+}
+.aviso-exito {
+    border-color: var(--exito);
+}
+.aviso-exito strong,
+.aviso-exito .icono {
+    color: var(--exito);
+}
+.aviso-advertencia {
+    border-color: var(--advertencia);
+}
+.aviso-advertencia strong,
+.aviso-advertencia .icono {
+    color: var(--advertencia);
+}
+.aviso-error {
+    border-color: var(--error);
+}
+.aviso-error strong,
+.aviso-error .icono {
+    color: var(--error);
+}
+
+/* etiquetas de estado */
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 8px;
+    border: 1px solid var(--texto-secundario);
+    border-radius: 6px;
+    background-color: var(--superficie);
+    color: var(--texto-secundario);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.etiqueta-confirmada {
+    border-color: var(--primario);
+    color: var(--primario);
+}
+.etiqueta-atendida,
+.etiqueta-pagado {
+    border-color: var(--exito);
+    color: var(--exito);
+}
+.etiqueta-cancelada {
+    border-color: var(--error);
+    color: var(--error);
+}
+.etiqueta-no-asistio,
+.etiqueta-con-saldo {
+    border-color: var(--advertencia);
+    color: var(--advertencia);
+}
+
+/* tarjetas y tablas */
+.tarjeta {
+    padding: 16px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+}
+.tarjeta-tabla {
+    padding: 0;
+    overflow: hidden;
+}
+.tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    height: 40px;
+    padding: 0 16px;
+    background-color: var(--fondo);
+    border-top: 1px solid var(--borde);
+    color: var(--texto-secundario);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: left;
+}
+td {
+    height: 56px;
+    padding: 8px 16px;
+    border-top: 1px solid var(--borde);
+}
+th.derecha,
+td.derecha {
+    text-align: right;
+}
+tr.total td {
+    background-color: var(--fondo);
+    font-weight: 600;
+}
+.tabla-vacia {
+    padding: 24px 16px;
+    border-top: 1px solid var(--borde);
+    color: var(--texto-secundario);
+    text-align: center;
+}
+.paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--borde);
+}
+.pagina-actual {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: var(--radio);
+    background-color: var(--primario);
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.dato dt {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--texto-secundario);
+}
+.dato dd {
+    margin-bottom: 8px;
+}
+.par {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* ventanas modales */
+.ventana-fondo {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(15, 23, 42, 0.45);
+    overflow-y: auto;
+}
+.ventana {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 560px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 24px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+}
+.ventana-ancha {
+    width: 640px;
+}
+.ventana-angosta {
+    width: 480px;
+}
+.ventana form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.resumen {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 16px;
+    border-radius: var(--radio);
+    background-color: var(--fondo);
+}
+
+/* estructura general: menú lateral y contenido */
+.aplicacion {
+    display: flex;
+    min-height: 100vh;
+}
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 240px;
+    flex: none;
+    padding: 24px 16px;
+    border-right: 1px solid var(--borde);
+    background-color: var(--superficie);
+}
+.marca-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primario);
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 600;
+}
+.marca img {
+    width: 24px;
+    height: 24px;
+}
+#botonMenu,
+#selectorSeccion {
+    display: none;
+}
+#menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    list-style: none;
+}
+#menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: var(--radio);
+    color: var(--texto);
+    font-weight: 400;
+}
+#menu a .icono {
+    color: var(--texto-secundario);
+}
+#menu a:hover {
+    background-color: var(--fondo);
+}
+#menu a.activo {
+    border-color: var(--primario);
+    background-color: var(--fondo);
+    color: var(--primario);
+    font-weight: 500;
+}
+#menu a.activo .icono {
+    color: var(--primario);
+}
+.sesion {
+    margin-top: auto;
+    padding: 16px 4px 0;
+    border-top: 1px solid var(--borde);
+}
+.sesion .boton-texto {
+    margin-top: 8px;
+    padding: 0;
+}
+.contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-width: 0;
+    padding: 24px 32px 32px;
+}
+.dos-columnas {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+.columna-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+.columna-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 320px;
+    flex: none;
+}
+
+/* inicio de sesión */
+#paginaLogin {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--superficie);
+}
+#panelMarca {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 50%;
+    border-right: 1px solid var(--borde);
+    background-color: var(--fondo);
+}
+#panelMarca .marca {
+    gap: 12px;
+    font-size: 40px;
+    line-height: 48px;
+}
+#panelMarca .marca img {
+    width: 64px;
+    height: 64px;
+}
+#panelAcceso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 32px 16px;
+}
+#panelAcceso > div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 360px;
+    max-width: 100%;
+}
+#formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+#campoClave {
+    position: relative;
+}
+#campoClave input {
+    padding-right: 80px;
+}
+#campoClave button {
+    position: absolute;
+    right: 12px;
+    top: 14px;
+}
+#usuariosPrueba {
+    padding-top: 16px;
+    border-top: 1px solid var(--borde);
+}
+#usuariosPrueba table {
+    margin-top: 8px;
+}
+#usuariosPrueba th,
+#usuariosPrueba td {
+    height: 32px;
+    padding: 0 8px;
+    font-size: 12px;
+}
+
+/* agenda */
+#barraAgenda {
+    flex-wrap: wrap;
+}
+#barraAgenda select {
+    width: 240px;
+    height: 40px;
+}
+.vistas {
+    display: flex;
+    height: 40px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+}
+.vistas button {
+    padding: 0 16px;
+    border: none;
+    border-radius: 7px;
+    background: none;
+    color: var(--texto-secundario);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+.vistas button.activo {
+    background-color: var(--primario);
+    color: white;
+    font-weight: 500;
+}
+#agendaSemana {
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    overflow: hidden;
+}
+#agendaCabecera {
+    display: flex;
+    height: 40px;
+    background-color: var(--fondo);
+    color: var(--texto-secundario);
+    font-size: 12px;
+    font-weight: 500;
+}
+#agendaCabecera div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    border-left: 1px solid var(--borde);
+}
+#agendaCabecera div:first-child,
+#agendaHoras {
+    width: 64px;
+    flex: none;
+    border-left: none;
+}
+#agendaCabecera div.hoy {
+    color: var(--primario);
+    font-weight: 600;
+}
+#agendaCuerpo {
+    display: flex;
+    border-top: 1px solid var(--borde);
+}
+#agendaHoras div {
+    height: 60px;
+    padding-top: 6px;
+    border-bottom: 1px solid var(--borde);
+    color: var(--texto-secundario);
+    font-size: 12px;
+    text-align: center;
+}
+#agendaHoras div:last-child,
+.agenda-dia {
+    border-bottom: none;
+}
+.agenda-dia {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    border-left: 1px solid var(--borde);
+    background-image: linear-gradient(to bottom, transparent 59px, var(--borde) 59px);
+    background-size: 100% 60px;
+}
+.cita {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2px 8px;
+    border: 1px solid var(--texto-secundario);
+    border-radius: 6px;
+    background-color: var(--superficie);
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: left;
+    color: var(--texto);
+    overflow: hidden;
+    cursor: pointer;
+}
+.cita strong,
+.cita span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cita strong {
+    font-weight: 600;
+}
+.cita .odontologo {
+    color: var(--texto-secundario);
+}
+.cita .estado {
+    font-weight: 500;
+    color: var(--texto-secundario);
+}
+.cita-confirmada {
+    border-color: var(--primario);
+}
+.cita-confirmada .estado {
+    color: var(--primario);
+}
+.cita-atendida {
+    border-color: var(--exito);
+}
+.cita-atendida .estado {
+    color: var(--exito);
+}
+.cita-cancelada {
+    border-color: var(--error);
+    background-color: var(--fondo);
+}
+.cita-cancelada .estado {
+    color: var(--error);
+}
+.cita-no-asistio {
+    border-color: var(--advertencia);
+    background-color: var(--fondo);
+}
+.cita-no-asistio .estado {
+    color: var(--advertencia);
+}
+.cita-cancelada,
+.cita-no-asistio {
+    border-style: dashed;
+}
+.cita.seleccionada {
+    border-style: solid;
+    border: 2px solid var(--texto);
+    padding: 1px 7px;
+    background-color: var(--fondo);
+}
+#leyenda {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+#panelCita {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 288px;
+    flex: none;
+}
+#panelCita .dato dd:last-child {
+    margin-bottom: 0;
+}
+#panelCita hr {
+    border: none;
+    border-top: 1px solid var(--borde);
+}
+#resumenDia {
+    display: none;
+}
+#diasSemana {
+    display: flex;
+    gap: 6px;
+}
+#diasSemana button {
+    flex: 1;
+    padding: 6px 0;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+}
+#diasSemana button span {
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+}
+#diasSemana button.activo {
+    border-color: var(--primario);
+    background-color: var(--primario);
+    color: white;
+    font-weight: 600;
+}
+#listaDia {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.hora-dia {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.hora-dia > span {
+    width: 40px;
+    flex: none;
+    padding-top: 12px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+.hora-dia > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+.cita-dia {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    font-family: inherit;
+    font-size: 14px;
+    text-align: left;
+    color: var(--texto);
+    cursor: pointer;
+}
+.cita-dia.seleccionada {
+    border: 2px solid var(--texto);
+    padding: 11px;
+}
+.cita-dia strong {
+    font-weight: 600;
+}
+.cita-dia .fila-separada {
+    align-items: flex-start;
+    padding-bottom: 4px;
+}
+.libre {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px dashed var(--texto-secundario);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    color: var(--texto-secundario);
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: left;
+}
+button.libre {
+    cursor: pointer;
+}
+button.libre:hover {
+    border-color: var(--primario);
+    color: var(--primario);
+}
+
+/* historia clínica */
+.pestanas {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid var(--borde);
+}
+.pestanas button {
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--texto-secundario);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+.pestanas button.activo {
+    border-bottom-color: var(--primario);
+    color: var(--primario);
+    font-weight: 600;
+}
+.atencion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px;
+    border-top: 1px solid var(--borde);
+}
+.atencion-datos {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+.atencion-datos .dato {
+    flex: 1;
+    min-width: 0;
+}
+.atencion-datos .dato dd {
+    margin-bottom: 0;
+}
+.nota {
+    padding: 8px 12px;
+    border-left: 3px solid var(--primario);
+    background-color: var(--fondo);
+    font-size: 12px;
+    line-height: 16px;
+}
+.pie-tarjeta {
+    padding: 12px 16px;
+    border-top: 1px solid var(--borde);
+    color: var(--texto-secundario);
+    font-size: 12px;
+    line-height: 16px;
+}
+.campo-corto {
+    flex: none;
+    width: 160px;
+}
+.atencion .fila {
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.fila-nota {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* presupuesto */
+#detallePresupuesto td {
+    height: 64px;
+}
+#detallePresupuesto input {
+    width: 96px;
+}
+#tarjetaTotal {
+    width: 360px;
+}
+.cifra {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+}
+.cifra-saldo {
+    color: var(--advertencia);
+}
+
+/* reportes */
+.reporte-filtros {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.reporte-filtros input {
+    width: 150px;
+    height: 32px;
+}
+#reportesFila {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+}
+#reporteCitas {
+    flex: 3;
+    min-width: 0;
+}
+#reporteSaldos {
+    flex: 2;
+    min-width: 0;
+}
+#reporteCitas th,
+#reporteCitas td {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+#reporteCitas th:first-child,
+#reporteCitas td:first-child {
+    padding-left: 16px;
+}
+
+/* adaptación a celular */
+@media (max-width: 768px) {
+    .aplicacion {
+        flex-direction: column;
+    }
+    .menu-lateral {
+        width: 100%;
+        gap: 12px;
+        padding: 12px 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--borde);
+    }
+    .marca-fila {
+        margin-bottom: 0;
+        padding: 0;
+    }
+    #botonMenu {
+        display: inline-flex;
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+        border: none;
+        background: none;
+        color: var(--primario);
+        cursor: pointer;
+    }
+    #selectorSeccion {
+        display: block;
+        border-color: var(--primario);
+        color: var(--primario);
+    }
+    .menu-lateral nav,
+    .menu-lateral .sesion {
+        display: none;
+    }
+    .menu-lateral.abierto nav,
+    .menu-lateral.abierto .sesion {
+        display: block;
+    }
+    .sesion {
+        margin-top: 0;
+    }
+    .contenido {
+        padding: 16px 16px 24px;
+        gap: 16px;
+    }
+    .dos-columnas,
+    .campos-fila,
+    #reportesFila {
+        flex-direction: column;
+    }
+    .campos-fila {
+        align-items: stretch;
+    }
+    .campos-fila.siempre-fila {
+        flex-direction: row;
+    }
+    .columna-lateral,
+    #panelCita,
+    #tarjetaTotal,
+    .campo-corto {
+        width: 100%;
+    }
+    .dos-columnas > * {
+        width: 100%;
+    }
+    #barraAgenda select {
+        width: 100%;
+    }
+    #agendaSemana,
+    .vistas {
+        display: none;
+    }
+    #resumenDia {
+        display: block;
+    }
+    #barraAgenda > .fila {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    #tituloPeriodo {
+        order: -1;
+        width: 100%;
+    }
+    /* el botón «Nueva cita» queda fijo al pie */
+    .accion-fija {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        z-index: 4;
+        height: 48px;
+    }
+    /* barra al pie, detrás del botón, para que la lista no se vea debajo */
+    .con-accion-fija:has(.accion-fija:not([hidden]))::after {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        height: 80px;
+        border-top: 1px solid var(--borde);
+        background-color: var(--superficie);
+    }
+    .con-accion-fija {
+        padding-bottom: 104px;
+    }
+    .acciones {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+    .acciones .boton {
+        display: flex;
+        width: 100%;
+    }
+    .ventana-fondo {
+        align-items: stretch;
+        padding: 0;
+    }
+    .ventana,
+    .ventana-ancha,
+    .ventana-angosta {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        padding: 16px;
+    }
+    .ventana-angosta {
+        margin: auto 16px;
+        width: auto;
+        border: 1px solid var(--borde);
+        border-radius: var(--radio);
+    }
+    #paginaLogin {
+        flex-direction: column;
+    }
+    #panelMarca {
+        width: 100%;
+        padding: 40px 16px 24px;
+        border-right: none;
+        background-color: var(--superficie);
+    }
+    #panelMarca .marca {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    #panelMarca .marca img {
+        width: 36px;
+        height: 36px;
+    }
+    #panelAcceso {
+        width: 100%;
+        align-items: flex-start;
+        padding-top: 0;
+    }
+    /* las tablas pasan a tarjetas apiladas */
+    table.adaptable thead {
+        display: none;
+    }
+    table.adaptable tr {
+        display: block;
+        padding: 12px 16px;
+        border-top: 1px solid var(--borde);
+    }
+    table.adaptable td {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        height: auto;
+        padding: 4px 0;
+        border-top: none;
+        text-align: right;
+    }
+    table.adaptable td::before {
+        content: attr(data-etiqueta);
+        color: var(--texto-secundario);
+        font-size: 12px;
+        font-weight: 500;
+        text-align: left;
+    }
+    table.adaptable td:first-child {
+        font-weight: 600;
+    }
+    table.adaptable tr.total {
+        background-color: var(--fondo);
+    }
+    .atencion-datos {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .atencion .fila-separada {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    /* en celular los antecedentes van antes del formulario de atención */
+    #pestanaHistoria .columna-lateral {
+        order: -1;
+    }
+    #detallePresupuesto td {
+        height: auto;
+        align-items: center;
+    }
+    #detallePresupuesto select {
+        width: 220px;
+    }
+    .paginacion {
+        flex-wrap: wrap;
+    }
+    .reporte-filtros {
+        flex-wrap: wrap;
+    }
+    .tarjeta-cabecera {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .reporte-filtros input {
+        flex: 1;
+    }
+    .pestanas {
+        gap: 16px;
+        overflow-x: auto;
+    }
+    .pestanas button {
+        white-space: nowrap;
+    }
+}

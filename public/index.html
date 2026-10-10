@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - DentivaCore</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script defer src="assets/scripts/datos.js"></script>
+    <script defer src="assets/scripts/reglas.js"></script>
+    <script defer src="assets/scripts/script.js"></script>
+    <script defer src="assets/scripts/login.js"></script>
+
+</head>
+
+<body>
+    <div id="paginaLogin">
+        <!-- panel de marca -->
+        <section id="panelMarca">
+            <div class="marca">
+                <img src="assets/images/logo.svg" alt="">
+                DentivaCore
+            </div>
+            <p class="secundario">Gestión para consultorios dentales</p>
+        </section>
+
+        <!-- formulario de acceso -->
+        <main id="panelAcceso">
+            <div>
+                <div>
+                    <h1>Iniciar sesión</h1>
+                    <p class="secundario">Ingresa con el usuario que te asignó el consultorio.</p>
+                </div>
+                <form id="formLogin" novalidate>
+                    <div class="campo">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" id="usuario" name="usuario" autocomplete="username">
+                        <small id="errorUsuario"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="clave">Contraseña</label>
+                        <div id="campoClave">
+                            <input type="password" id="clave" name="clave" autocomplete="current-password">
+                            <button type="button" id="botonMostrarClave" class="boton-texto">Mostrar</button>
+                        </div>
+                        <small id="errorClave"></small>
+                    </div>
+                    <div id="avisoLogin" class="aviso" hidden></div>
+                    <button type="submit" class="boton boton-primario boton-ancho">Ingresar</button>
+                </form>
+                <p class="pequeno secundario">¿No tienes usuario? Pídelo al administrador del consultorio.</p>
+
+                <!-- usuarios de prueba del prototipo -->
+                <section id="usuariosPrueba">
+                    <h3>Usuarios de prueba</h3>
+                    <p class="pequeno secundario">La contraseña de los tres es dentiva123.</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Recepcionista</td>
+                                <td>marisol.diaz</td>
+                            </tr>
+                            <tr>
+                                <td>Odontólogo</td>
+                                <td>andres.rojas</td>
+                            </tr>
+                            <tr>
+                                <td>Administradora</td>
+                                <td>carmen.vela</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" id="botonRestablecer" class="boton-texto">Restablecer los datos de ejemplo</button>
+                    <p id="mensajeRestablecer" class="pequeno secundario"></p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

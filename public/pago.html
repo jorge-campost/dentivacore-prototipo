@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar pago - DentivaCore</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script defer src="assets/scripts/datos.js"></script>
+    <script defer src="assets/scripts/reglas.js"></script>
+    <script defer src="assets/scripts/script.js"></script>
+    <script defer src="assets/scripts/pago.js"></script>
+
+</head>
+
+<body>
+    <div class="aplicacion">
+
+        <!-- menú lateral: cada enlace indica qué roles lo ven -->
+        <aside class="menu-lateral">
+            <div class="marca-fila">
+                <div class="marca">
+                    <img src="assets/images/logo.svg" alt="">
+                    DentivaCore
+                </div>
+                <button type="button" id="botonMenu" aria-label="Abrir menú" data-icono="menu"></button>
+            </div>
+            <select id="selectorSeccion" aria-label="Sección"></select>
+            <nav aria-label="Secciones">
+                <ul id="menu">
+                    <li><a href="agenda.html" data-seccion="agenda" data-roles="recepcionista odontologo"><span data-icono="agenda"></span>Agenda</a></li>
+                    <li><a href="pacientes.html" data-seccion="pacientes" data-roles="recepcionista odontologo"><span data-icono="pacientes"></span>Pacientes</a></li>
+                    <li><a href="historia.html" data-seccion="atenciones" data-roles="odontologo"><span data-icono="atenciones"></span>Atenciones</a></li>
+                    <li><a href="pago.html" data-seccion="pagos" data-roles="recepcionista"><span data-icono="pagos"></span>Pagos</a></li>
+                    <li><a href="reportes.html" data-seccion="reportes" data-roles="administrador"><span data-icono="reportes"></span>Reportes</a></li>
+                    <li><a href="configuracion.html" data-seccion="configuracion" data-roles="administrador"><span data-icono="configuracion"></span>Configuración</a></li>
+                </ul>
+            </nav>
+            <div class="sesion">
+                <p id="nombreUsuario"></p>
+                <p id="cargoUsuario" class="pequeno secundario"></p>
+                <button type="button" id="botonCerrarSesion" class="boton-texto">Cerrar sesión</button>
+            </div>
+        </aside>
+
+        <main class="contenido">
+            <p class="pequeno secundario">Pagos / Registrar pago</p>
+            <h1>Registrar pago</h1>
+            <div id="avisoPagina" class="aviso" hidden></div>
+
+            <div class="dos-columnas">
+                <form id="formPago" class="tarjeta columna columna-principal" novalidate>
+                    <div class="campos-fila">
+                        <div class="campo">
+                            <label for="pacientePago">Paciente</label>
+                            <div class="buscador">
+                                <span data-icono="buscar"></span>
+                                <input type="text" id="pacientePago" placeholder="Buscar por nombre o número de documento" autocomplete="off">
+                                <ul id="sugerenciasPago" class="sugerencias" hidden></ul>
+                            </div>
+                            <small id="errorPacientePago"></small>
+                        </div>
+                        <div class="campo">
+                            <label for="presupuestoPago">Presupuesto</label>
+                            <select id="presupuestoPago" disabled></select>
+                            <small id="errorPresupuestoPago"></small>
+                        </div>
+                    </div>
+                    <div class="campos-fila">
+                        <div class="campo">
+                            <label for="fechaPago">Fecha de pago</label>
+                            <input type="date" id="fechaPago">
+                            <small id="errorFechaPago"></small>
+                        </div>
+                        <div class="campo">
+                            <label for="montoPago">Monto (S/)</label>
+                            <input type="text" id="montoPago" placeholder="0.00" inputmode="decimal" autocomplete="off">
+                            <small id="errorMontoPago"></small>
+                        </div>
+                    </div>
+                    <p id="ayudaMonto" class="ayuda"></p>
+                    <div id="avisoPago" class="aviso" hidden></div>
+                    <div class="acciones">
+                        <button type="button" id="botonLimpiarPago" class="boton">Cancelar</button>
+                        <button type="submit" class="boton boton-primario">Registrar pago</button>
+                    </div>
+                </form>
+
+                <div class="columna-lateral">
+                    <!-- resumen de cuenta del presupuesto elegido -->
+                    <div class="tarjeta columna">
+                        <h2>Resumen de cuenta</h2>
+                        <div class="par">
+                            <span class="secundario">Total del presupuesto</span>
+                            <span id="resumenTotal">—</span>
+                        </div>
+                        <div class="par">
+                            <span class="secundario">Pagado a la fecha</span>
+                            <span id="resumenPagado">—</span>
+                        </div>
+                        <div class="fila-separada">
+                            <strong>Saldo pendiente</strong>
+                            <span id="resumenSaldo" class="cifra cifra-saldo">—</span>
+                        </div>
+                    </div>
+                    <div class="tarjeta columna">
+                        <h2>Pagos anteriores</h2>
+                        <div id="pagosAnteriores" class="columna"></div>
+                        <p class="pequeno secundario">Los pagos registrados no se eliminan. Cuando el saldo llega a cero, el presupuesto pasa a Pagado.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de citas - DentivaCore</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script defer src="assets/scripts/datos.js"></script>
+    <script defer src="assets/scripts/reglas.js"></script>
+    <script defer src="assets/scripts/script.js"></script>
+    <script defer src="assets/scripts/agenda.js"></script>
+
+</head>
+
+<body>
+    <div class="aplicacion">
+
+        <!-- menú lateral: cada enlace indica qué roles lo ven -->
+        <aside class="menu-lateral">
+            <div class="marca-fila">
+                <div class="marca">
+                    <img src="assets/images/logo.svg" alt="">
+                    DentivaCore
+                </div>
+                <button type="button" id="botonMenu" aria-label="Abrir menú" data-icono="menu"></button>
+            </div>
+            <select id="selectorSeccion" aria-label="Sección"></select>
+            <nav aria-label="Secciones">
+                <ul id="menu">
+                    <li><a href="agenda.html" data-seccion="agenda" data-roles="recepcionista odontologo"><span data-icono="agenda"></span>Agenda</a></li>
+                    <li><a href="pacientes.html" data-seccion="pacientes" data-roles="recepcionista odontologo"><span data-icono="pacientes"></span>Pacientes</a></li>
+                    <li><a href="historia.html" data-seccion="atenciones" data-roles="odontologo"><span data-icono="atenciones"></span>Atenciones</a></li>
+                    <li><a href="pago.html" data-seccion="pagos" data-roles="recepcionista"><span data-icono="pagos"></span>Pagos</a></li>
+                    <li><a href="reportes.html" data-seccion="reportes" data-roles="administrador"><span data-icono="reportes"></span>Reportes</a></li>
+                    <li><a href="configuracion.html" data-seccion="configuracion" data-roles="administrador"><span data-icono="configuracion"></span>Configuración</a></li>
+                </ul>
+            </nav>
+            <div class="sesion">
+                <p id="nombreUsuario"></p>
+                <p id="cargoUsuario" class="pequeno secundario"></p>
+                <button type="button" id="botonCerrarSesion" class="boton-texto">Cerrar sesión</button>
+            </div>
+        </aside>
+
+        <main class="contenido con-accion-fija">
+            <div class="fila-separada">
+                <h1>Agenda de citas</h1>
+                <button type="button" id="botonNuevaCita" class="boton boton-primario accion-fija"><span data-icono="mas"></span>Nueva cita</button>
+            </div>
+            <div id="avisoAgenda" class="aviso" hidden></div>
+
+            <!-- barra de herramientas -->
+            <div id="barraAgenda" class="fila-separada">
+                <div class="fila">
+                    <button type="button" id="botonHoy" class="boton">Hoy</button>
+                    <button type="button" id="botonAnterior" class="boton boton-icono" aria-label="Anterior"><span data-icono="anterior"></span></button>
+                    <button type="button" id="botonSiguiente" class="boton boton-icono" aria-label="Siguiente"><span data-icono="siguiente"></span></button>
+                    <h2 id="tituloPeriodo"></h2>
+                </div>
+                <div class="fila">
+                    <select id="filtroOdontologo" aria-label="Odontólogo"></select>
+                    <div class="vistas">
+                        <button type="button" id="vistaDia">Día</button>
+                        <button type="button" id="vistaSemana" class="activo">Semana</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dos-columnas">
+                <div class="columna-principal">
+                    <!-- vista de semana -->
+                    <div id="agendaSemana">
+                        <div id="agendaCabecera"></div>
+                        <div id="agendaCuerpo"></div>
+                    </div>
+
+                    <!-- vista de día, que también es la vista en celular -->
+                    <div id="agendaDia" class="columna" hidden>
+                        <p id="resumenDia" class="secundario"></p>
+                        <div id="diasSemana"></div>
+                        <div id="listaDia"></div>
+                    </div>
+
+                    <!-- leyenda de estados -->
+                    <div id="leyenda" class="fila">
+                        <span class="etiqueta">Programada</span>
+                        <span class="etiqueta etiqueta-confirmada">Confirmada</span>
+                        <span class="etiqueta etiqueta-atendida">Atendida</span>
+                        <span class="etiqueta etiqueta-cancelada">Cancelada</span>
+                        <span class="etiqueta etiqueta-no-asistio">No asistió</span>
+                        <span class="pequeno secundario">Las citas canceladas y las inasistencias dejan libre su hora.</span>
+                    </div>
+                </div>
+
+                <!-- detalle de la cita elegida -->
+                <aside id="panelCita" class="tarjeta" aria-live="polite"></aside>
+            </div>
+        </main>
+    </div>
+
+    <div id="ventanaCita" class="ventana-fondo" hidden>
+        <div class="ventana" role="dialog" aria-modal="true" aria-labelledby="tituloVentanaCita">
+            <div class="fila-separada">
+                <h2 id="tituloVentanaCita">Nueva cita</h2>
+                <button type="button" class="boton-texto" data-cerrar="ventanaCita" aria-label="Cerrar"><span data-icono="cerrar"></span></button>
+            </div>
+            <form id="formCita" novalidate>
+                <div class="campo">
+                    <label for="pacienteCita">Paciente</label>
+                    <div class="buscador">
+                        <span data-icono="buscar"></span>
+                        <input type="text" id="pacienteCita" placeholder="Buscar por nombre o número de documento" autocomplete="off">
+                        <ul id="sugerenciasCita" class="sugerencias" hidden></ul>
+                    </div>
+                    <small id="errorPacienteCita"></small>
+                    <p class="pequeno secundario">¿No está registrado? <a href="pacientes.html?nuevo=1">Registrar paciente nuevo</a></p>
+                </div>
+                <div class="campos-fila">
+                    <div class="campo">
+                        <label for="odontologoCita">Odontólogo</label>
+                        <select id="odontologoCita"></select>
+                        <small id="errorOdontologoCita"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="fechaCita">Fecha</label>
+                        <input type="date" id="fechaCita">
+                        <small id="errorFechaCita"></small>
+                    </div>
+                </div>
+                <div class="campos-fila siempre-fila">
+                    <div class="campo">
+                        <label for="horaCita">Hora de inicio</label>
+                        <select id="horaCita"></select>
+                        <small id="errorHoraCita"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="duracionCita">Duración</label>
+                        <select id="duracionCita">
+                            <option value="30">30 min</option>
+                            <option value="60">60 min</option>
+                            <option value="90">90 min</option>
+                            <option value="120">120 min</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="avisoCita" class="aviso" hidden></div>
+                <div class="acciones">
+                    <button type="button" class="boton" data-cerrar="ventanaCita">Cancelar</button>
+                    <button type="submit" class="boton boton-primario">Guardar cita</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="ventanaCancelar" class="ventana-fondo" hidden>
+        <div class="ventana ventana-angosta" role="dialog" aria-modal="true" aria-labelledby="tituloVentanaCancelar">
+            <div class="fila-separada">
+                <h2 id="tituloVentanaCancelar">¿Cancelar esta cita?</h2>
+                <button type="button" class="boton-texto" data-cerrar="ventanaCancelar" aria-label="Cerrar"><span data-icono="cerrar"></span></button>
+            </div>
+            <p class="secundario">La hora quedará libre para otro paciente. Una cita cancelada no vuelve a Programada.</p>
+            <div id="resumenCancelar" class="resumen"></div>
+            <div class="acciones">
+                <button type="button" class="boton" data-cerrar="ventanaCancelar">Volver</button>
+                <button type="button" id="botonConfirmarCancelar" class="boton boton-peligro">Cancelar cita</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

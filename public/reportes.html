@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - DentivaCore</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script defer src="assets/scripts/datos.js"></script>
+    <script defer src="assets/scripts/reglas.js"></script>
+    <script defer src="assets/scripts/script.js"></script>
+    <script defer src="assets/scripts/reportes.js"></script>
+
+</head>
+
+<body>
+    <div class="aplicacion">
+
+        <!-- menú lateral: cada enlace indica qué roles lo ven -->
+        <aside class="menu-lateral">
+            <div class="marca-fila">
+                <div class="marca">
+                    <img src="assets/images/logo.svg" alt="">
+                    DentivaCore
+                </div>
+                <button type="button" id="botonMenu" aria-label="Abrir menú" data-icono="menu"></button>
+            </div>
+            <select id="selectorSeccion" aria-label="Sección"></select>
+            <nav aria-label="Secciones">
+                <ul id="menu">
+                    <li><a href="agenda.html" data-seccion="agenda" data-roles="recepcionista odontologo"><span data-icono="agenda"></span>Agenda</a></li>
+                    <li><a href="pacientes.html" data-seccion="pacientes" data-roles="recepcionista odontologo"><span data-icono="pacientes"></span>Pacientes</a></li>
+                    <li><a href="historia.html" data-seccion="atenciones" data-roles="odontologo"><span data-icono="atenciones"></span>Atenciones</a></li>
+                    <li><a href="pago.html" data-seccion="pagos" data-roles="recepcionista"><span data-icono="pagos"></span>Pagos</a></li>
+                    <li><a href="reportes.html" data-seccion="reportes" data-roles="administrador"><span data-icono="reportes"></span>Reportes</a></li>
+                    <li><a href="configuracion.html" data-seccion="configuracion" data-roles="administrador"><span data-icono="configuracion"></span>Configuración</a></li>
+                </ul>
+            </nav>
+            <div class="sesion">
+                <p id="nombreUsuario"></p>
+                <p id="cargoUsuario" class="pequeno secundario"></p>
+                <button type="button" id="botonCerrarSesion" class="boton-texto">Cerrar sesión</button>
+            </div>
+        </aside>
+
+        <main class="contenido">
+            <h1>Reportes</h1>
+            <div id="avisoReportes" class="aviso" hidden></div>
+
+            <div id="reportesFila">
+                <!-- citas del día por odontólogo y por estado -->
+                <section id="reporteCitas" class="tarjeta tarjeta-tabla">
+                    <div class="tarjeta-cabecera">
+                        <div>
+                            <h2>Citas del día</h2>
+                            <p class="pequeno secundario">Por odontólogo y por estado</p>
+                        </div>
+                        <div class="reporte-filtros">
+                            <input type="date" id="fechaCitas" aria-label="Fecha del reporte">
+                            <button type="button" id="exportarCitas" class="boton boton-pequeno">Exportar a CSV</button>
+                        </div>
+                    </div>
+                    <table class="adaptable">
+                        <thead>
+                            <tr>
+                                <th>Odontólogo</th>
+                                <th class="derecha">Programada</th>
+                                <th class="derecha">Confirmada</th>
+                                <th class="derecha">Atendida</th>
+                                <th class="derecha">Cancelada</th>
+                                <th class="derecha">No asistió</th>
+                                <th class="derecha">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filasCitas"></tbody>
+                    </table>
+                </section>
+
+                <!-- pacientes con saldo pendiente -->
+                <section id="reporteSaldos" class="tarjeta tarjeta-tabla">
+                    <div class="tarjeta-cabecera">
+                        <div>
+                            <h2>Pacientes con saldo pendiente</h2>
+                            <p class="pequeno secundario">Del saldo mayor al menor</p>
+                        </div>
+                        <button type="button" id="exportarSaldos" class="boton boton-pequeno">Exportar a CSV</button>
+                    </div>
+                    <table class="adaptable">
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Documento</th>
+                                <th class="derecha">Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filasSaldos"></tbody>
+                    </table>
+                    <p id="sinSaldos" class="tabla-vacia" hidden>Ningún paciente tiene saldo pendiente.</p>
+                </section>
+            </div>
+
+            <!-- ingresos por periodo -->
+            <section id="reporteIngresos" class="tarjeta tarjeta-tabla">
+                <div class="tarjeta-cabecera">
+                    <div>
+                        <h2>Ingresos por periodo</h2>
+                        <p class="pequeno secundario">Pagos registrados entre dos fechas</p>
+                    </div>
+                    <div class="reporte-filtros">
+                        <input type="date" id="fechaDesde" aria-label="Desde">
+                        <span class="secundario">a</span>
+                        <input type="date" id="fechaHasta" aria-label="Hasta">
+                        <button type="button" id="aplicarIngresos" class="boton boton-primario boton-pequeno">Aplicar</button>
+                        <button type="button" id="exportarIngresos" class="boton boton-pequeno">Exportar a CSV</button>
+                    </div>
+                </div>
+                <div id="avisoIngresos" class="aviso" hidden></div>
+                <table class="adaptable">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th class="derecha">N.º de pagos</th>
+                            <th class="derecha">Ingresos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filasIngresos"></tbody>
+                </table>
+                <p id="sinIngresos" class="tabla-vacia" hidden>No hay pagos registrados en ese periodo.</p>
+            </section>
+        </main>
+    </div>
+
+</body>
+
+</html>

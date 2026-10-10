@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia clínica - DentivaCore</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script defer src="assets/scripts/datos.js"></script>
+    <script defer src="assets/scripts/reglas.js"></script>
+    <script defer src="assets/scripts/script.js"></script>
+    <script defer src="assets/scripts/historia.js"></script>
+
+</head>
+
+<body>
+    <div class="aplicacion">
+
+        <!-- menú lateral: cada enlace indica qué roles lo ven -->
+        <aside class="menu-lateral">
+            <div class="marca-fila">
+                <div class="marca">
+                    <img src="assets/images/logo.svg" alt="">
+                    DentivaCore
+                </div>
+                <button type="button" id="botonMenu" aria-label="Abrir menú" data-icono="menu"></button>
+            </div>
+            <select id="selectorSeccion" aria-label="Sección"></select>
+            <nav aria-label="Secciones">
+                <ul id="menu">
+                    <li><a href="agenda.html" data-seccion="agenda" data-roles="recepcionista odontologo"><span data-icono="agenda"></span>Agenda</a></li>
+                    <li><a href="pacientes.html" data-seccion="pacientes" data-roles="recepcionista odontologo"><span data-icono="pacientes"></span>Pacientes</a></li>
+                    <li><a href="historia.html" data-seccion="atenciones" data-roles="odontologo"><span data-icono="atenciones"></span>Atenciones</a></li>
+                    <li><a href="pago.html" data-seccion="pagos" data-roles="recepcionista"><span data-icono="pagos"></span>Pagos</a></li>
+                    <li><a href="reportes.html" data-seccion="reportes" data-roles="administrador"><span data-icono="reportes"></span>Reportes</a></li>
+                    <li><a href="configuracion.html" data-seccion="configuracion" data-roles="administrador"><span data-icono="configuracion"></span>Configuración</a></li>
+                </ul>
+            </nav>
+            <div class="sesion">
+                <p id="nombreUsuario"></p>
+                <p id="cargoUsuario" class="pequeno secundario"></p>
+                <button type="button" id="botonCerrarSesion" class="boton-texto">Cerrar sesión</button>
+            </div>
+        </aside>
+
+        <main class="contenido">
+            <!-- sin paciente elegido: buscador y atenciones recientes -->
+            <section id="seleccionPaciente" class="columna" hidden>
+                <div>
+                    <h1>Atenciones</h1>
+                    <p class="secundario">Elige un paciente para abrir su historia clínica.</p>
+                </div>
+                <div class="tarjeta">
+                    <div class="campo">
+                        <label for="pacienteHistoria">Paciente</label>
+                        <div class="buscador">
+                            <span data-icono="buscar"></span>
+                            <input type="text" id="pacienteHistoria" placeholder="Buscar por nombre o número de documento" autocomplete="off">
+                            <ul id="sugerenciasHistoria" class="sugerencias" hidden></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarjeta tarjeta-tabla">
+                    <div class="tarjeta-cabecera">
+                        <h2>Mis atenciones recientes</h2>
+                    </div>
+                    <table class="adaptable">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Paciente</th>
+                                <th>Pieza</th>
+                                <th>Diagnóstico</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="filasRecientes"></tbody>
+                    </table>
+                    <p id="sinRecientes" class="tabla-vacia" hidden>Todavía no registraste atenciones.</p>
+                </div>
+            </section>
+
+            <!-- historia clínica del paciente elegido -->
+            <section id="historiaPaciente" class="columna" hidden>
+                <p class="pequeno secundario"><a href="historia.html">Atenciones</a> / <span id="rutaPaciente"></span></p>
+                <div class="fila-separada">
+                    <div>
+                        <h1 id="nombrePaciente"></h1>
+                        <p id="datosPaciente" class="secundario"></p>
+                    </div>
+                    <a id="enlaceNuevoPresupuesto" class="boton" href="#">Nuevo presupuesto</a>
+                </div>
+                <div id="avisoHistoria" class="aviso" hidden></div>
+
+                <div class="pestanas">
+                    <button type="button" data-pestana="pestanaDatos">Datos del paciente</button>
+                    <button type="button" data-pestana="pestanaHistoria" class="activo">Historia clínica</button>
+                    <button type="button" data-pestana="pestanaPresupuestos">Presupuestos</button>
+                </div>
+
+                <!-- pestaña: datos del paciente -->
+                <div id="pestanaDatos" class="tarjeta" hidden>
+                    <dl id="listaDatos" class="dato"></dl>
+                </div>
+
+                <!-- pestaña: historia clínica -->
+                <div id="pestanaHistoria" class="dos-columnas">
+                    <div class="columna-principal">
+                        <form id="formAtencion" class="tarjeta columna" novalidate>
+                            <h2>Registrar atención</h2>
+                            <div class="campos-fila">
+                                <div class="campo campo-corto">
+                                    <label for="fechaAtencion">Fecha</label>
+                                    <input type="date" id="fechaAtencion">
+                                    <small id="errorFechaAtencion"></small>
+                                </div>
+                                <div class="campo campo-corto">
+                                    <label for="piezaAtencion">Pieza dental (FDI)</label>
+                                    <input type="text" id="piezaAtencion" placeholder="Ej. 16" inputmode="numeric" maxlength="2" autocomplete="off">
+                                    <small id="errorPiezaAtencion"></small>
+                                </div>
+                                <div class="campo">
+                                    <label for="diagnosticoAtencion">Diagnóstico</label>
+                                    <input type="text" id="diagnosticoAtencion" placeholder="Qué se encontró" autocomplete="off">
+                                    <small id="errorDiagnosticoAtencion"></small>
+                                </div>
+                            </div>
+                            <div class="campos-fila">
+                                <div class="campo">
+                                    <label for="procedimientoAtencion">Procedimiento</label>
+                                    <input type="text" id="procedimientoAtencion" placeholder="Qué se hizo" autocomplete="off">
+                                    <small id="errorProcedimientoAtencion"></small>
+                                </div>
+                                <div class="campo">
+                                    <label for="indicacionesAtencion">Indicaciones</label>
+                                    <input type="text" id="indicacionesAtencion" placeholder="Qué debe hacer el paciente" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="fila-separada">
+                                <p class="ayuda">La pieza se escribe con la numeración FDI, por ejemplo 16 o 36.</p>
+                                <button type="submit" class="boton boton-primario">Guardar atención</button>
+                            </div>
+                        </form>
+
+                        <div class="tarjeta tarjeta-tabla">
+                            <div class="tarjeta-cabecera">
+                                <h2>Atenciones registradas</h2>
+                                <span class="pequeno secundario">De la más reciente a la más antigua</span>
+                            </div>
+                            <div id="listaAtenciones"></div>
+                            <p id="sinAtenciones" class="tabla-vacia" hidden>Este paciente todavía no tiene atenciones registradas.</p>
+                            <p class="pie-tarjeta">Las atenciones no se eliminan. Si hay un error, agrega una nota aclaratoria.</p>
+                        </div>
+                    </div>
+
+                    <div class="columna-lateral">
+                        <div class="tarjeta">
+                            <h2>Antecedentes</h2>
+                            <dl id="listaAntecedentes" class="dato"></dl>
+                            <button type="button" id="botonEditarAntecedentes" class="boton-texto">Editar antecedentes</button>
+                        </div>
+                        <div class="tarjeta fila">
+                            <span data-icono="info"></span>
+                            <p id="textoConsultas" class="pequeno secundario"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pestaña: presupuestos -->
+                <div id="pestanaPresupuestos" class="tarjeta tarjeta-tabla" hidden>
+                    <table class="adaptable">
+                        <thead>
+                            <tr>
+                                <th>N.º</th>
+                                <th>Fecha</th>
+                                <th class="derecha">Total</th>
+                                <th class="derecha">Pagado</th>
+                                <th class="derecha">Saldo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filasPresupuestos"></tbody>
+                    </table>
+                    <p id="sinPresupuestos" class="tabla-vacia" hidden>Este paciente no tiene presupuestos.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="ventanaNota" class="ventana-fondo" hidden>
+        <div class="ventana ventana-angosta" role="dialog" aria-modal="true" aria-labelledby="tituloVentanaNota">
+            <div class="fila-separada">
+                <h2 id="tituloVentanaNota">Agregar nota aclaratoria</h2>
+                <button type="button" class="boton-texto" data-cerrar="ventanaNota" aria-label="Cerrar"><span data-icono="cerrar"></span></button>
+            </div>
+            <p id="resumenNota" class="secundario"></p>
+            <form id="formNota" novalidate>
+                <div class="campo">
+                    <label for="textoNota">Nota</label>
+                    <textarea id="textoNota" placeholder="Qué hay que aclarar o corregir"></textarea>
+                    <small id="errorTextoNota"></small>
+                </div>
+                <p class="ayuda">La nota se guarda con tu usuario y la fecha de hoy. La atención original no cambia.</p>
+                <div class="acciones">
+                    <button type="button" class="boton" data-cerrar="ventanaNota">Cancelar</button>
+                    <button type="submit" class="boton boton-primario">Guardar nota</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="ventanaAntecedentes" class="ventana-fondo" hidden>
+        <div class="ventana ventana-angosta" role="dialog" aria-modal="true" aria-labelledby="tituloVentanaAntecedentes">
+            <div class="fila-separada">
+                <h2 id="tituloVentanaAntecedentes">Editar antecedentes</h2>
+                <button type="button" class="boton-texto" data-cerrar="ventanaAntecedentes" aria-label="Cerrar"><span data-icono="cerrar"></span></button>
+            </div>
+            <form id="formAntecedentes" novalidate>
+                <div class="campo">
+                    <label for="alergias">Alergias</label>
+                    <input type="text" id="alergias" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="enfermedades">Enfermedades</label>
+                    <input type="text" id="enfermedades" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="medicacion">Medicación actual</label>
+                    <input type="text" id="medicacion" autocomplete="off">
+                </div>
+                <div class="acciones">
+                    <button type="button" class="boton" data-cerrar="ventanaAntecedentes">Cancelar</button>
+                    <button type="submit" class="boton boton-primario">Guardar antecedentes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
